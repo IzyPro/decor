@@ -162,30 +162,18 @@ class Product extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
-                        onTap: () {
-                          final isObs = ref.watch(favouriteProvider.state);
-                          isObs.state = !isObs.state;
-                          if (isObs.state) {
-                            _viewModel.favourites.add(args);
-                          } else {
-                            if (_viewModel.favourites
-                                .any((e) => e.id == args.id)) {
-                              _viewModel.favourites.removeWhere(
-                                  (element) => element.id == args.id);
-                            }
-                          }
-                        },
+                        onTap: () => _viewModel.handleFavourite(args),
                         child: Container(
                           padding: const EdgeInsets.all(ySpaceMid),
                           child:
                               _viewModel.favourites.any((e) => e.id == args.id)
                                   ? Icon(
-                                      Icons.favorite_outline,
-                                      color: Theme.of(context).canvasColor,
-                                    )
-                                  : Icon(
                                       Icons.favorite,
                                       color: Theme.of(context).primaryColor,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_outline,
+                                      color: Theme.of(context).canvasColor,
                                     ),
                           decoration: BoxDecoration(
                               color: Theme.of(context).backgroundColor,
@@ -201,8 +189,9 @@ class Product extends ConsumerWidget {
                               'Add to cart',
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .headline3
+                                  .headline4
                                   ?.copyWith(
+                                    fontWeight: FontWeight.w600,
                                     color: Theme.of(context).backgroundColor,
                                   ),
                             ),

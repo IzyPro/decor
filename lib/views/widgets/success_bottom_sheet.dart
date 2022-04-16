@@ -32,13 +32,13 @@ class CustomSuccessfulBottomSheet extends ConsumerWidget {
         Duration(seconds: seconds ?? 3),
         () => !willRedirect
             ? Navigator.pop(context)
-            : isRouteReplacement
+            : isRouteReplacement && route != null
                 ? {
                     Navigator.pop(context),
-                    Navigator.of(context)
-                        .pushReplacementNamed(route!, arguments: routeArgs)
+                    Navigator.of(context).pushReplacementNamed(route as String,
+                        arguments: routeArgs)
                   }
-                : Navigator.of(context).pushNamed(route!));
+                : Navigator.of(context).pushNamed(route as String));
     return SingleChildScrollView(
       child: Column(
         children: [

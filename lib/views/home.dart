@@ -15,8 +15,11 @@ class Home extends ConsumerWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: generalHorizontalPadding, vertical: topSpace),
+          padding: const EdgeInsets.only(
+              left: generalHorizontalPadding,
+              right: generalHorizontalPadding,
+              top: topSpace,
+              bottom: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

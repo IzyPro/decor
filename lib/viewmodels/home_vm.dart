@@ -3,6 +3,7 @@ import 'package:decor_app/models/product_model.dart';
 import 'package:decor_app/utils/assets.dart';
 import 'package:decor_app/utils/router.dart';
 import 'package:decor_app/views/widgets/dialog_widget.dart';
+import 'package:decor_app/views/widgets/error_bottom_sheet.dart';
 import 'package:decor_app/views/widgets/success_bottom_sheet.dart';
 import 'package:decor_app/utils/exports.dart';
 
@@ -121,6 +122,16 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   addTocart(BuildContext ctx, ServiceProducts product) {
+    if (cart.any((e) => e.id == product.id)) {
+      DialogWidgets.modalBottomSheetMenu(
+        ctx,
+        CustomErrorBottomSheet(
+          message: '${product.productName} already added to cart',
+        ),
+        isError: true,
+      );
+      return;
+    }
     cart.add(CartItem(id: product.id, product: product, quantity: quantity));
     DialogWidgets.modalBottomSheetMenu(
       ctx,
@@ -130,5 +141,22 @@ class HomeViewModel extends ChangeNotifier {
       ),
       isError: false,
     );
+    quantity = 1;
+    notifyListeners();
+  }
+
+  getTotalPrice() {
+    double sum = 0;
+    cart.forEach((e) {
+      sum += e.product.productPrice * e.quantity;
+    });
+    return sum;
+  }
+
+  handleFavourite(ServiceProducts product) {
+    favourites.any((e) => e.id == product.id)
+        ? favourites.removeWhere((e) => e.id == product.id)
+        : favourites.add(product);
+    notifyListeners();
   }
 }

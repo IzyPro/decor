@@ -12,19 +12,6 @@ class ProductFrame extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _viewModel = ref.watch(homeViewModel);
 
-    void handleClick() {
-      final isObs = ref.watch(favouriteProvider.state);
-      isObs.state = !isObs.state;
-      if (isObs.state) {
-        _viewModel.favourites.add(product);
-      } else {
-        if (_viewModel.favourites.any((e) => e.id == product.id)) {
-          _viewModel.favourites
-              .removeWhere((element) => element.id == product.id);
-        }
-      }
-    }
-
     return InkWell(
       onTap: () =>
           Navigator.of(context).pushNamed(Routes.product, arguments: product),
@@ -65,16 +52,15 @@ class ProductFrame extends ConsumerWidget {
               ),
               const Spacer(),
               InkWell(
-                onTap: () => handleClick(),
-                child: ValueNotifier<bool>(_viewModel.favourites
-                        .any((e) => e.id == product.id)).value
+                onTap: () => _viewModel.handleFavourite(product),
+                child: _viewModel.favourites.any((e) => e.id == product.id)
                     ? Icon(
-                        Icons.favorite_outline,
-                        color: Theme.of(context).canvasColor,
-                      )
-                    : Icon(
                         Icons.favorite,
                         color: Theme.of(context).primaryColor,
+                      )
+                    : Icon(
+                        Icons.favorite_outline,
+                        color: Theme.of(context).canvasColor,
                       ),
               ),
             ],

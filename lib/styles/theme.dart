@@ -119,6 +119,7 @@ ThemeData lightTheme = ThemeData(
     iconTheme: const IconThemeData(color: AppColors.primary),
     buttonTheme: const ButtonThemeData(buttonColor: AppColors.black),
     canvasColor: const Color.fromARGB(255, 32, 28, 28),
+    cardColor: AppColors.accent,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.white,
         selectedItemColor: AppColors.primary,
