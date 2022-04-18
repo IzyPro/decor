@@ -119,7 +119,7 @@ class Product extends ConsumerWidget {
                       const Spacer(),
                       Container(
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
@@ -127,7 +127,7 @@ class Product extends ConsumerWidget {
                               child: const Icon(Icons.remove),
                             ),
                             const SizedBox(
-                              width: ySpaceMin,
+                              width: ySpaceMid,
                             ),
                             Text(
                               _viewModel.quantity.toString(),
@@ -137,7 +137,7 @@ class Product extends ConsumerWidget {
                                   ?.copyWith(fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
-                              width: ySpaceMin,
+                              width: ySpaceMid,
                             ),
                             InkWell(
                               onTap: () => _viewModel.increaseQuantity(),
